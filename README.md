@@ -42,26 +42,6 @@ Notes:
 - Delay must be a positive number.
 - While running, the app shows status and disables Start to prevent duplicates.
 
-### Build a Windows executable (PyInstaller)
-This repo includes a PyInstaller spec: `autoclicker by Lim.spec`. Build with:
-```bash
-pyinstaller "autoclicker by Lim.spec"
-```
-Artifacts are created under `dist/` and `build/`. The icon is set to `icon/acbl.ico` and a PNG `icon/acbl.png` is bundled for the taskbar/title icon.
-
-If you prefer a one-liner without the spec (defaults may differ), you can also run:
-```bash
-pyinstaller --onefile --noconsole --name "autoclicker by Lim" --icon icon/acbl.ico autoclicker.py
-```
-
-### Clean rebuild
-```bash
-# From repo root
-# Remove prior outputs then build with the spec
-rm -r -fo build dist 2>$null | out-null
-pyinstaller "autoclicker by Lim.spec"
-```
-
 ### Troubleshooting
 - **Hotkey F6 not working**: Ensure `keyboard` is installed and the app is run as Administrator, or disable hotkeys in the UI.
 - **Clicks not registering in some apps**: Some games/applications block synthetic input. Try running as Administrator.
