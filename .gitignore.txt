@@ -1,0 +1,8 @@
+dist/
+build/
+*.spec
+!autoclicker by Lim.spec
+*.log
+__pycache__/
+*.pyc
+installer/
