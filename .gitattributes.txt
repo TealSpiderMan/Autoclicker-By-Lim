@@ -1,1 +1,13 @@
-.devcontainer/*.json linguist-language=JSON-with-Comments
+# Force all .py files to count as Python
+*.py linguist-language=Python
+
+# Exclude non-source files from language stats
+*.md linguist-documentation
+*.txt linguist-documentation
+*.csv linguist-documentation
+*.json linguist-generated
+*.yml linguist-generated
+*.yaml linguist-generated
+
+# If you have notebooks, force them to Python
+*.ipynb linguist-language=Python
