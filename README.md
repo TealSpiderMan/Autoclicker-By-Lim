@@ -1,4 +1,4 @@
-## autoclicker by Lim
+## Autoclicker by Lim
 
 A minimal, dark-themed Windows auto-clicker built with Tkinter and PyAutoGUI. Set a click delay, choose the mouse button, and start/stop clicking via UI or a global hotkey.
 
