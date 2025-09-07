@@ -38,42 +38,24 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"; Flags: checkedonce
 
 [Files]
-; Support BOTH PyInstaller modes. The one that doesn't exist is skipped.
-; Folder mode (from spec): dist\autoclicker by Lim\*
-Source: "{#DistDirFolder}\\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion skipifsourcedoesntexist; \
-    Check: DirExists(ExpandConstant('{#DistDirFolder}'))
-; One-file mode: dist\autoclicker by Lim.exe
-Source: "{#DistExePath}"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist; \
-    Check: FileExists(ExpandConstant('{#DistExePath}'))
+; Select build mode at compile time and FAIL if nothing to package
+#ifexist "{#DistExePath}"
+Source: "{#DistExePath}"; DestDir: "{app}"; Flags: ignoreversion
+#define InstalledExeRelPath "{#ExeName}"
+#else
+#ifexist "{#DistDirFolder}\\{#ExeName}"
+Source: "{#DistDirFolder}\\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs ignoreversion
+#define InstalledExeRelPath "autoclicker by Lim\\{#ExeName}"
+#else
+#error "No build output found in dist/. Run PyInstaller before compiling the installer."
+#endif
+#endif
 
 [Icons]
-; Create shortcuts only if the EXE can be found in one of the expected locations
-Name: "{group}\\{#MyAppName}"; Filename: "{code:MainExePath}"; IconFilename: "{code:MainExePath}"; Check: MainExeExists
+Name: "{group}\\{#MyAppName}"; Filename: "{app}\\{#InstalledExeRelPath}"; IconFilename: "{app}\\{#InstalledExeRelPath}"
 Name: "{group}\\Uninstall {#MyAppName}"; Filename: "{uninstallexe}"
 ; Always create a desktop icon by default; user can delete later if unwanted
-Name: "{autodesktop}\\{#MyAppName}"; Filename: "{code:MainExePath}"; Check: MainExeExists
+Name: "{autodesktop}\\{#MyAppName}"; Filename: "{app}\\{#InstalledExeRelPath}"
 
 [Run]
-Filename: "{code:MainExePath}"; Description: "Launch {#MyAppName}"; Flags: nowait postinstall skipifsilent; Check: MainExeExists
-
-[Code]
-function MainExePath(Param: string): string;
-begin
-  if FileExists(ExpandConstant('{app}\\{#ExeName}')) then
-  begin
-    Result := ExpandConstant('{app}\\{#ExeName}');
-  end
-  else if FileExists(ExpandConstant('{app}\\autoclicker by Lim\\{#ExeName}')) then
-  begin
-    Result := ExpandConstant('{app}\\autoclicker by Lim\\{#ExeName}');
-  end
-  else
-  begin
-    Result := '';
-  end;
-end;
-
-function MainExeExists(): Boolean;
-begin
-  Result := FileExists(MainExePath(''));
-end;
+Filename: "{app}\\{#InstalledExeRelPath}"; Description: "Launch {#MyAppName}"; Flags: nowait postinstall skipifsilent
