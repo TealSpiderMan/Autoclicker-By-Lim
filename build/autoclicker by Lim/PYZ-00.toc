@@ -1,4 +1,4 @@
-('C:\\Users\\Alex\\OneDrive\\Desktop\\Test\\PythonAutoClicker\\build\\autoclicker '
+('C:\\Users\\Alex\\OneDrive\\Documents\\GitHub\\Autoclicker-By-Lim\\build\\autoclicker '
  'by Lim\\PYZ-00.pyz',
  [('PIL',
    'C:\\Users\\Alex\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PIL\\__init__.py',

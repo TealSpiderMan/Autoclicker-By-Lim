@@ -5,7 +5,7 @@ a = Analysis(
     ['autoclicker.py'],
     pathex=[],
     binaries=[],
-    datas=[('icon\\\\acbl.ico', 'icon')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

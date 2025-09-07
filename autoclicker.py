@@ -19,6 +19,11 @@ class AutoClickerApp:
 		self.root.title("autoclicker by Lim")
 		self.root.resizable(False, False)
 		self.root.configure(bg="#000000")
+		# Remove any white focus border around the root window
+		try:
+			self.root.configure(highlightthickness=0)
+		except Exception:
+			pass
 		# Window opacity (0.0 fully transparent - 1.0 opaque)
 		try:
 			self.root.attributes("-alpha", 1.0)
@@ -52,6 +57,9 @@ class AutoClickerApp:
 		self.style.map("Dark.TButton", background=[("active", "#333333")])
 		self.style.configure("Dark.TRadiobutton", background="#000000", foreground="#FFFFFF", font=font_main)
 		self.style.map("Dark.TRadiobutton", background=[("active", "#111111"), ("!active", "#000000")])
+		# Dedicated dark style for ttk.Checkbutton (avoid white background on some themes)
+		self.style.configure("Dark.TCheckbutton", background="#000000", foreground="#FFFFFF", font=font_main)
+		self.style.map("Dark.TCheckbutton", background=[("active", "#111111"), ("!active", "#000000")])
 		# Entry field background supported by clam theme
 		self.style.configure("Dark.TEntry", fieldbackground="#111111", foreground="#FFFFFF", insertcolor="#FFFFFF", selectbackground="#444444", selectforeground="#FFFFFF")
 
@@ -96,7 +104,7 @@ class AutoClickerApp:
 			hotkeys_frame,
 			text=hotkeys_label_text,
 			variable=self.enable_hotkeys_var,
-			style="Dark.TRadiobutton",
+			style="Dark.TCheckbutton",
 			command=self._on_hotkeys_toggle,
 		)
 		self.hotkeys_check.grid(row=0, column=0, sticky="w")
