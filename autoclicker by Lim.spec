@@ -5,7 +5,7 @@ a = Analysis(
     ['autoclicker.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('icon\\acbl.ico', 'icon'), ('icon\\acbl.png', 'icon')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['C:\\Users\\Alex\\OneDrive\\Documents\\GitHub\\Autoclicker-By-Lim\\icon\\acbl.ico'],
+    icon=['icon\\acbl.ico'],
 )

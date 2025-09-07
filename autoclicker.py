@@ -48,7 +48,13 @@ class AutoClickerApp:
 		try:
 			self.style.theme_use("clam")
 		except Exception:
-			self.style.theme_use(self.style.theme_use())
+			# Fallback to a dark-friendlier built-in if clam unavailable
+			for fallback in ("alt", "default"):
+				try:
+					self.style.theme_use(fallback)
+					break
+				except Exception:
+					continue
 		font_main = ("Segoe UI", 12)
 		font_large = ("Segoe UI", 13)
 		self.style.configure("Dark.TFrame", background="#000000")
