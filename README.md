@@ -9,7 +9,10 @@ A minimal, dark-themed Windows auto-clicker built with Tkinter and PyAutoGUI. Se
 - **Dark mode**: Dark title bar on supported Windows builds
 - **Tray-friendly**: Window is small and non-resizable
 
-### Requirements
+### Download
+- Grab the single EXE from the Releases page and run it directly. If Windows SmartScreen appears, click “More info” → “Run anyway”.
+
+### Requirements (for running from source)
 - **OS**: Windows 10/11
 - **Python**: 3.10+
 - **Packages**:
@@ -44,22 +47,32 @@ This repo includes a PyInstaller spec: `autoclicker by Lim.spec`. Build with:
 ```bash
 pyinstaller "autoclicker by Lim.spec"
 ```
-Artifacts are created under `dist/` and `build/`. The icon is set to `icon/acbl.ico` via the spec. If you customize paths, update the spec accordingly.
+Artifacts are created under `dist/` and `build/`. The icon is set to `icon/acbl.ico` and a PNG `icon/acbl.png` is bundled for the taskbar/title icon.
 
 If you prefer a one-liner without the spec (defaults may differ), you can also run:
 ```bash
-pyinstaller --noconsole --name "autoclicker by Lim" --icon icon/acbl.ico autoclicker.py
+pyinstaller --onefile --noconsole --name "autoclicker by Lim" --icon icon/acbl.ico autoclicker.py
+```
+
+### Clean rebuild
+```bash
+# From repo root
+# Remove prior outputs then build with the spec
+rm -r -fo build dist 2>$null | out-null
+pyinstaller "autoclicker by Lim.spec"
 ```
 
 ### Troubleshooting
 - **Hotkey F6 not working**: Ensure `keyboard` is installed and the app is run as Administrator, or disable hotkeys in the UI.
 - **Clicks not registering in some apps**: Some games/applications block synthetic input. Try running as Administrator.
+- **Taskbar/title icon shows default (feather)**: Ensure `icon/acbl.ico` includes multiple sizes and that `icon/acbl.png` exists; rebuild cleanly. If Windows caches the old icon, rename the EXE or run `ie4uinit.exe -ClearIconCache`.
 - **Display scaling or multiple monitors**: PyAutoGUI uses screen coordinates; unusual DPI settings or virtual desktops may affect behavior.
 
 ### Project structure
 - `autoclicker.py`: Main application
 - `autoclicker by Lim.spec`: PyInstaller build spec
-- `icon/acbl.ico`: App icon used for the window and build
+- `installer.iss`: Optional Windows installer script
+- `icon/acbl.ico`, `icon/acbl.png`: App icons
 
 ### License
 MIT
