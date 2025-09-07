@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['icon\\acbl.ico'],
+    icon=['C:\\Users\\Alex\\OneDrive\\Documents\\GitHub\\Autoclicker-By-Lim\\icon\\acbl.ico'],
 )

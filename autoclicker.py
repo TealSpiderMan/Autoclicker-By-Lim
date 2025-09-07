@@ -236,15 +236,28 @@ def main() -> None:
 		base_path = sys._MEIPASS  # type: ignore[attr-defined]
 	except Exception:
 		base_path = os.path.dirname(os.path.abspath(__file__))
-	# Try both root and icon/ subfolder for acbl.ico
-	candidate_icons = [
+	# Try both root and icon/ subfolder for icons (ico and png)
+	candidate_icos = [
 		os.path.join(base_path, "acbl.ico"),
 		os.path.join(base_path, "icon", "acbl.ico"),
 	]
-	icon_path = next((p for p in candidate_icons if os.path.exists(p)), None)
-	if icon_path:
+	candidate_pngs = [
+		os.path.join(base_path, "acbl.png"),
+		os.path.join(base_path, "icon", "acbl.png"),
+	]
+	icon_ico = next((p for p in candidate_icos if os.path.exists(p)), None)
+	icon_png = next((p for p in candidate_pngs if os.path.exists(p)), None)
+	# Set bitmap icon (title bar on Windows)
+	if icon_ico:
 		try:
-			root.iconbitmap(icon_path)
+			root.iconbitmap(icon_ico)
+		except Exception:
+			pass
+	# Also set iconphoto with PNG to influence taskbar in some environments
+	if icon_png:
+		try:
+			photo = tk.PhotoImage(file=icon_png)
+			root.iconphoto(True, photo)
 		except Exception:
 			pass
 	app = AutoClickerApp(root)
